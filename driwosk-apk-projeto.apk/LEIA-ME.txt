@@ -1,0 +1,23 @@
+APK DO DRIWOSK - PRESTACAO DE CONTAS (Android)
+
+GERAR O APK (GitHub faz tudo)
+1. Envie TODO o conteudo desta pasta para o repositorio, incluindo a pasta oculta .github e o arquivo driwosk.keystore.
+2. Aba Actions > "Gerar APK" > Run workflow (leva uns 5 a 10 minutos).
+3. Quando terminar, abra a pagina inicial do repositorio > "Releases" (lado direito) > baixe o arquivo Driwosk.apk
+   (e o .apk direto, sem zip). Pode abrir esse link direto pelo navegador do celular.
+4. Instale. O Android vai pedir para permitir "instalar apps desconhecidos" para o navegador/gerenciador de arquivos.
+
+SE APARECER "APP NAO INSTALADO"
+- Voce tentou instalar o .zip? Instale o Driwosk.apk (de Releases), nao o zip do "Artifacts".
+- Ja existe uma versao anterior do app no celular? Desinstale o Driwosk antigo e instale de novo
+  (versoes anteriores foram assinadas com outra chave e o Android recusa a troca).
+- Toque em "Mais detalhes > Instalar mesmo assim" se o Google Play Protect avisar.
+- Pouco espaco no celular tambem causa esse erro.
+
+NO SEU COMPUTADOR (alternativa): Node.js 18+, Java 17 e Android Studio
+   npm install && npm run copiar && npx cap add android && npx cap sync android && npx cap open android
+
+Observacoes
+- Dados ficam no proprio celular; o PDF abre o menu de compartilhar. Funciona sem internet.
+- driwosk.keystore e a chave de assinatura (senha driwosk123). Mantendo o mesmo arquivo, as proximas versoes atualizam por cima da instalada.
+- Para a Play Store e preciso uma chave propria e privada (nao deixe o keystore em repositorio publico).

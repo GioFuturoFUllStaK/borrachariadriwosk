@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1e3a8a">
+    <title>Prestação de Contas - Borracharia Driwosk</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jspdf.umd.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- Cabeçalho da Prestação de Contas -->
+    <header class="cabecalho">
+        <div class="container-header">
+            <div class="marca">
+                <div class="nome-borracharia">🔧 Borracharia Driwosk</div>
+                <div class="subtitulo">Prestação de Contas</div>
+            </div>
+            
+            <div class="form-header">
+                <div class="campo">
+                    <label>Placa do Veículo</label>
+                    <input type="text" id="placa" placeholder="Ex: ABC-1234" maxlength="7">
+                </div>
+                
+                <div class="campo">
+                    <label>Cidade</label>
+                    <input type="text" id="cidade" placeholder="Cidade">
+                </div>
+                
+                <div class="campo estado">
+                    <label>Estado</label>
+                    <select id="estado">
+                        <option value="">UF</option>
+                        <option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option>
+                        <option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option>
+                        <option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option>
+                        <option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option>
+                        <option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option>
+                        <option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option>
+                        <option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option>
+                    </select>
+                </div>
+                
+                <div class="campo">
+                    <label>Data e Hora</label>
+                    <input type="datetime-local" id="dataHora">
+                </div>
+                
+                <div class="campo">
+                    <label>Nome do Borracheiro</label>
+                    <input type="text" id="borracheiro" placeholder="Nome do responsável">
+                </div>
+                
+                <div class="campo tipo-veiculo">
+                    <label>Tipo de Veículo</label>
+                    <select id="tipoVeiculo" onChange="trocarVeiculo()">
+                        <option value="moto">🏍️ Moto</option>
+                        <option value="carro_passeio">🚗 Carro de Passeio (Baixo)</option>
+                        <option value="caminhao_2_eixos">🚚 Caminhão 2 Eixos</option>
+                        <option value="caminhao_3_eixos">🚛 Caminhão 3 Eixos</option>
+                        <option value="carreta">🚚🔗 Carreta (3 Eixos)</option>
+                        <option value="carreta_2_eixos">🚚🔗 Carreta (2 Eixos)</option>
+                        <option value="dolly">🛞 Dolly (2 Eixos)</option>
+                        <option value="trator">🚜 Trator</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Área do Esqueleto / Diagrama do Veículo -->
+    <main class="conteudo">
+        <div class="container-diagrama">
+            <div class="diagrama-header">
+                <h2 id="tituloDiagrama">Esqueleto do Veículo (Vista Superior)</h2>
+                <p class="instrucao">Clique nos pneus do diagrama para marcar onde o serviço foi executado. Os pneus selecionados ficarão <strong>laranja fraco</strong>.</p>
+            </div>
+            
+            <div id="areaDiagrama" class="area-diagrama"></div>
+            
+            <div id="resumoSelecao" class="resumo-selecao" style="display:none;">
+                <h3>📋 Pneus Selecionados</h3>
+                <div id="listaPneusSelecionados"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Detalhes do Serviço por Pneu -->
+    <div id="modalServico" class="modal">
+        <div class="modal-conteudo">
+            <div class="modal-header">
+                <h3 id="modalTitulo">Serviço - Pneu <span id="modalPosicao"></span></h3>
+                <span class="fechar" onclick="fecharModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="campo">
+                    <label>Tipo de Serviço</label>
+                    <select id="servTipoServico">
+                        <option value="calibragem">💨 Calibragem</option>
+                        <option value="conserto">🔧 Conserto</option>
+                        <option value="rodizio">🔄 Rodízio</option>
+                        <option value="alinhamento">⚖️ Alinhamento</option>
+                        <option value="balanceamento">⚖️ Balanceamento</option>
+                        <option value="troca">🛞 Troca de Pneu</option>
+                    </select>
+                </div>
+                
+                <div class="campo" id="grupoConcerto" style="display:none;">
+                    <label>Tipo de Conserto</label>
+                    <select id="servTipoConcerto">
+                        <option value="cordinha">🪢 Cordinha (Emergência)</option>
+                        <option value="adesivo_frio">🧊 Adesivo a Frio</option>
+                        <option value="remendo_quente">🔥 Remendo Vulcanizado a Quente</option>
+                    </select>
+                </div>
+                
+                <div class="campo">
+                    <label>Numeração / Medida do Pneu</label>
+                    <input type="text" id="servNumeracao" placeholder="Ex: 205/55 R16">
+                </div>
+                
+                <div class="campo">
+                    <label>Observação</label>
+                    <textarea id="servObservacao" rows="3" placeholder="Detalhes adicionais..."></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                    <button type="button" class="btn-salvar" onclick="salvarServicoPneu()">Salvar Serviço</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botões Salvar e Gerar PDF -->
+    <div class="rodape-acao">
+        <button type="button" class="btn-salvar-prestacao" onclick="salvarPrestacao()">
+            💾 Salvar Prestação de Contas
+        </button>
+        <button type="button" class="btn-gerar-pdf" onclick="gerarPDF()" id="btnGerarPDF" disabled>
+            📄 Gerar PDF
+        </button>
+    </div>
+
+    <!-- Área de Atendimentos Salvos -->
+    <section class="historico" id="areaHistorico" style="margin-top: 40px; display:none;">
+        <h2>📋 Atendimentos Salvos</h2>
+        <div id="listaHistorico"></div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,623 @@
+/* ============================================================
+   PRESTAÇÃO DE CONTAS - BORRACHARIA DRIWOSK
+   Padrão de cores: Azul e Branco
+   Pneus selecionados: Laranja fraco
+   Layout: Esqueleto Vista Superior (Top-Down)
+============================================================= */
+
+:root {
+    --azul-escuro: #1e3a8a;
+    --azul-medio: #3b82f6;
+    --azul-claro: #dbeafe;
+    --branco: #ffffff;
+    --cinza-escuro: #334155;
+    --cinza-medio: #64748b;
+    --cinza-claro: #f1f5f9;
+    --fundo: #f8fafc;
+    --laranja-fraco: #fdd9b3;
+    --laranja-texto: #9a3412;
+    --sucesso: #10b981;
+    --borda: #e2e8f0;
+    --sombra: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--fundo);
+    color: var(--cinza-escuro);
+    line-height: 1.6;
+    padding-bottom: 80px;
+}
+
+/* ==================== CABEÇALHO ==================== */
+.cabecalho {
+    background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-medio) 100%);
+    color: var(--branco);
+    padding: 25px 0;
+    box-shadow: var(--sombra);
+}
+
+.container-header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.marca {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nome-borracharia {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--branco);
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitulo {
+    font-size: 1rem;
+    color: #bfdbfe;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.form-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: flex-end;
+    background: rgba(255,255,255,0.12);
+    padding: 22px 24px;
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 150px;
+}
+
+.campo label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #bfdbfe;
+}
+
+.campo input,
+.campo select {
+    padding: 11px 13px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 7px;
+    background: rgba(255,255,255,0.16);
+    color: var(--branco);
+    font-size: 0.98rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.campo input::placeholder {
+    color: #93c5fd;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: var(--branco);
+    background: rgba(255,255,255,0.28);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
+}
+
+.campo select option {
+    background: var(--azul-escuro);
+    color: var(--branco);
+}
+
+/* ==================== CONTEÚDO ==================== */
+.conteudo {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.container-diagrama {
+    background: var(--branco);
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--borda);
+}
+
+.diagrama-header {
+    margin-bottom: 22px;
+}
+
+.diagrama-header h2 {
+    color: var(--azul-escuro);
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+}
+
+.instrucao {
+    color: var(--cinza-medio);
+    margin-bottom: 0;
+    font-size: 0.98rem;
+}
+
+/* ==================== ÁREA DO DIAGRAMA VISTA SUPERIOR ==================== */
+.area-diagrama {
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border: 3px dashed var(--azul-medio);
+    border-radius: 12px;
+    margin: 26px auto 0 auto;
+    padding: 40px 30px;
+    min-height: 300px;
+    width: 100%;
+    max-width: 1000px;
+    overflow: visible;
+    box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.06);
+}
+
+/* Linha central do chassi (vista de cima) */
+.chassis-linha {
+    position: absolute;
+    background: var(--azul-escuro);
+    border-radius: 3px;
+    z-index: 1;
+    opacity: 0.85;
+}
+
+/* Linha do eixo (conecta os pneus左右) */
+.eixo-linha-top {
+    position: absolute;
+    height: 3px;
+    background: var(--cinza-medio);
+    border-radius: 2px;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+/* Botão pneu - vista superior (círculo) */
+.pneu-btn-top {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid var(--azul-escuro);
+    background: var(--branco);
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.22s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    outline: none;
+}
+
+.pneu-btn-top:hover {
+    transform: scale(1.18);
+    border-color: var(--azul-medio);
+    box-shadow: 0 5px 14px rgba(0,0,0,0.28);
+}
+
+.pneu-btn-top.selecionado {
+    background: var(--laranja-fraco);
+    border-color: var(--laranja-texto);
+    box-shadow: 0 0 0 6px rgba(253, 217, 179, 0.8), 0 4px 10px rgba(0,0,0,0.25);
+    transform: scale(1.2);
+}
+
+.pneu-label-top {
+    position: absolute;
+    bottom: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--cinza-escuro);
+    white-space: nowrap;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+    z-index: 3;
+}
+
+/* ==================== RESUMO DE SELEÇÃO ==================== */
+.resumo-selecao {
+    margin-top: 24px;
+    padding: 18px 22px;
+    background: var(--laranja-fraco);
+    border-left: 6px solid var(--laranja-texto);
+    border-radius: 10px;
+    display: none;
+}
+
+.resumo-selecao h3 {
+    color: var(--laranja-texto);
+    margin-bottom: 14px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item-resumo {
+    background: var(--branco);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    font-size: 0.88rem;
+    border: 1px solid #fcd5b3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item-resumo div {
+    min-width: 0;
+}
+
+.item-resumo strong {
+    color: var(--laranja-texto);
+    font-size: 0.9rem;
+}
+
+.item-resumo span {
+    color: var(--cinza-medio);
+    font-size: 0.82rem;
+}
+
+.btn-remover {
+    background: transparent;
+    border: none;
+    color: var(--laranja-texto);
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.btn-remover:hover {
+    background: rgba(154, 52, 18, 0.1);
+}
+
+/* ==================== MODAL ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.modal-conteudo {
+    background: var(--branco);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    animation: modalEntrada 0.35s ease;
+    overflow: hidden;
+}
+
+@keyframes modalEntrada {
+    from { opacity: 0; transform: translateY(-25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 22px;
+    background: var(--azul-escuro);
+    color: var(--branco);
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-header .fechar {
+    color: var(--branco);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.9;
+}
+
+.modal-header .fechar:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 22px 24px;
+}
+
+.modal-body .campo {
+    margin-bottom: 16px;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    color: var(--azul-escuro);
+    font-size: 0.92rem;
+}
+
+.modal-body select,
+.modal-body input,
+.modal-body textarea {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--borda);
+    border-radius: 7px;
+    font-size: 0.98rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: var(--branco) !important;
+    color: var(--cinza-escuro) !important;
+}
+
+.modal-body select:focus,
+.modal-body input:focus,
+.modal-body textarea:focus {
+    border-color: var(--azul-medio);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background: var(--branco) !important;
+    color: var(--cinza-escuro) !important;
+}
+
+.modal-body select option {
+    background: var(--branco);
+    color: var(--cinza-escuro);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 18px 24px;
+    background: var(--cinza-claro);
+    border-top: 1px solid var(--borda);
+}
+
+.btn-cancelar,
+.btn-salvar {
+    padding: 11px 24px;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancelar {
+    background: var(--cinza-medio);
+    color: var(--branco);
+}
+
+.btn-cancelar:hover {
+    background: #475569;
+}
+
+.btn-salvar {
+    background: var(--azul-medio);
+    color: var(--branco);
+}
+
+.btn-salvar:hover {
+    background: #2563eb;
+}
+
+/* ==================== BOTÃO SALVAR PRESTAÇÃO ==================== */
+.rodape-acao {
+    text-align: center;
+    margin: 34px 0;
+}
+
+.btn-salvar-prestacao {
+    background: var(--azul-escuro);
+    color: var(--branco);
+    padding: 15px 36px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-salvar-prestacao:hover {
+    background: #16417c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(30, 58, 138, 0.3);
+}
+
+.btn-gerar-pdf {
+    background: var(--azul-medio);
+    color: var(--branco);
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.btn-gerar-pdf:hover:not(:disabled) {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(59, 130, 246, 0.3);
+}
+
+.btn-gerar-pdf:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ==================== HISTÓRICO ==================== */
+.historico {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.historico h2 {
+    color: var(--azul-escuro);
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+}
+
+.card-historico {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--sombra);
+    transition: transform 0.2s;
+}
+
+.card-historico:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--borda);
+    padding-bottom: 10px;
+}
+
+.card-header strong {
+    color: var(--azul-escuro);
+}
+
+.data {
+    font-size: 0.82rem;
+    color: var(--cinza-medio);
+}
+
+.card-body {
+    font-size: 0.92rem;
+}
+
+.card-body span {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.btn-ver-detalhes {
+    margin-top: 12px;
+    padding: 8px 18px;
+    background: var(--azul-medio);
+    color: var(--branco);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.88rem;
+}
+
+.btn-ver-detalhes:hover {
+    background: #2563eb;
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 900px) {
+    .form-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .campo {
+        min-width: auto;
+    }
+    
+    .area-diagrama {
+        padding: 25px 20px;
+        min-height: 250px;
+    }
+    
+    .pneu-btn-top {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .pneu-label-top {
+        bottom: -22px;
+        font-size: 0.7rem;
+    }
+    
+    .modal-conteudo {
+        max-width: 92%;
+    }
+    
+    .container-header {
+        padding: 0 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nome-borracharia {
+        font-size: 1.6rem;
+    }
+    
+    .area-diagrama {
+        padding: 20px 15px;
+    }
+    
+    .pneu-btn-top {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .pneu-label-top {
+        bottom: -20px;
+        font-size: 0.65rem;
+    }
+}
